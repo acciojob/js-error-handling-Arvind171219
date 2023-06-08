@@ -1,4 +1,3 @@
-//your code here
 class OutOfRangeError extends Error {
   constructor() {
     super();
@@ -22,11 +21,11 @@ function evalString(expression) {
     }
 
     if (/^[\+\*\/]/.test(expression)) {
-      throw new SyntaxError('Expression should not start with invalid operator');
+      throw new SyntaxError('Expression should not start with an invalid operator');
     }
 
     if (/[\+\*\/\-]$/.test(expression)) {
-      throw new SyntaxError('Expression should not end with invalid operator');
+      throw new SyntaxError('Expression should not end with an invalid operator');
     }
 
     // Evaluation logic for the expression goes here
@@ -41,11 +40,21 @@ function evalString(expression) {
   }
 }
 
-// Test case
-try {
-  const expression = '5 + 3 * 2';
-  const result = evalString(expression);
-  console.log(result);
-} catch (error) {
-  console.log(error.name + ': ' + error.message);
-}
+// Example usage with user input
+const readline = require('readline');
+
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+
+rl.question('Enter the expression: ', (expression) => {
+  try {
+    const result = evalString(expression);
+    console.log('Result:', result);
+  } catch (error) {
+    console.log(error.name + ': ' + error.message);
+  }
+
+  rl.close();
+});
